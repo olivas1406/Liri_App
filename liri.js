@@ -103,34 +103,48 @@ spotify.search({ type: 'track', query: toDoArray }, function(err, data) {
 
 function getOMDB() {
 
-
-// Then run a request to the OMDB API with the movie specified
 var queryUrl = "http://www.omdbapi.com/?t=" + toDoArray + "&y=&plot=short&apikey=trilogy";
+var queryDefault = "http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=trilogy";
 
-request(queryUrl, function(error, response, body) {
+    if (toDoArray.length === 0) {
+        
+        request(queryDefault, function(error, response, body) {
 
-  // If the request is successful
-  if (!error && response.statusCode === 200) {
+            if (!error && response.statusCode === 200) {
+  
+                console.log(`
+                    Title: ${JSON.parse(body).Title}
+                    Release Year: ${JSON.parse(body).Year}
+                    IMDB Rating: ${body.imdbRating}
+                    Rotten Tomatoes Score: ${JSON.parse(body).Ratings[1].Value}
+                    Country: ${JSON.parse(body).Country}
+                    Language: ${JSON.parse(body).Language}
+                    Plot: ${JSON.parse(body).Plot}
+                    Actors: ${JSON.parse(body).Actors}
+                `);
+            }
+        });
 
-    console.log(`
-    Title: ${JSON.parse(body).Title}
-    Release Year: ${JSON.parse(body).Year}
-    IMDB Rating: ${body.imdbRating}
-    Rotten Tomatoes Score: ${JSON.parse(body).Ratings[1].Value}
-    Country: ${JSON.parse(body).Country}
-    Language: ${JSON.parse(body).Language}
-    Plot: ${JSON.parse(body).Plot}
-    Actors: ${JSON.parse(body).Actors}
-    `);
+    } else {
 
-  }
-});
+        request(queryUrl, function(error, response, body) {
 
+            if (!error && response.statusCode === 200) {
 
-
+                console.log(`
+                    Title: ${JSON.parse(body).Title}
+                    Release Year: ${JSON.parse(body).Year}
+                    IMDB Rating: ${body.imdbRating}
+                    Rotten Tomatoes Score: ${JSON.parse(body).Ratings[1].Value}
+                    Country: ${JSON.parse(body).Country}
+                    Language: ${JSON.parse(body).Language}
+                    Plot: ${JSON.parse(body).Plot}
+                    Actors: ${JSON.parse(body).Actors}
+                `);
+            }
+        });
+    }
 }
-
-
 
 
 
