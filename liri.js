@@ -113,14 +113,14 @@ var queryDefault = "http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=tri
             if (!error && response.statusCode === 200) {
   
                 console.log(`
-                    Title: ${JSON.parse(body).Title}
-                    Release Year: ${JSON.parse(body).Year}
-                    IMDB Rating: ${body.imdbRating}
-                    Rotten Tomatoes Score: ${JSON.parse(body).Ratings[1].Value}
-                    Country: ${JSON.parse(body).Country}
-                    Language: ${JSON.parse(body).Language}
-                    Plot: ${JSON.parse(body).Plot}
-                    Actors: ${JSON.parse(body).Actors}
+    Title: ${JSON.parse(body).Title}
+    Release Year: ${JSON.parse(body).Year}
+    IMDB Rating: ${body.imdbRating}
+    Rotten Tomatoes Score: ${JSON.parse(body).Ratings[1].Value}
+    Country: ${JSON.parse(body).Country}
+    Language: ${JSON.parse(body).Language}
+    Plot: ${JSON.parse(body).Plot}
+    Actors: ${JSON.parse(body).Actors}
                 `);
             }
         });
@@ -131,15 +131,15 @@ var queryDefault = "http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=tri
 
             if (!error && response.statusCode === 200) {
 
-                console.log(`
-                    Title: ${JSON.parse(body).Title}
-                    Release Year: ${JSON.parse(body).Year}
-                    IMDB Rating: ${body.imdbRating}
-                    Rotten Tomatoes Score: ${JSON.parse(body).Ratings[1].Value}
-                    Country: ${JSON.parse(body).Country}
-                    Language: ${JSON.parse(body).Language}
-                    Plot: ${JSON.parse(body).Plot}
-                    Actors: ${JSON.parse(body).Actors}
+console.log(`
+    Title: ${JSON.parse(body).Title}
+    Release Year: ${JSON.parse(body).Year}
+    IMDB Rating: ${body.imdbRating}
+    Rotten Tomatoes Score: ${JSON.parse(body).Ratings[1].Value}
+    Country: ${JSON.parse(body).Country}
+    Language: ${JSON.parse(body).Language}
+    Plot: ${JSON.parse(body).Plot}
+    Actors: ${JSON.parse(body).Actors}
                 `);
             }
         });
