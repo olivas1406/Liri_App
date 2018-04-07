@@ -44,7 +44,6 @@ if (toDo === "my-tweets") {  // node liri.js my-tweets
     console.log("Please Enter A Valid Input")
 }
 
-
 function getTweet() {
     var params = { screen_name: '_Shut_Up_Donnie', count: 20 };
         client.get('statuses/user_timeline', params, function (error, stream, response) {
@@ -54,7 +53,9 @@ function getTweet() {
                     streamMe.push(JSON.stringify(stream[i].text));
                     streamMe.push(stream[i].created_at);
                     var spliced = streamMe.splice(1, 18);
-                    console.log(spliced);
+                    var toShow = spliced.toString();
+                    toShow = toShow.replace(/ ] /gi, " ");
+                    console.log(toShow);
                 }       
             }
         })
