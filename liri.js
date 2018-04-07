@@ -48,6 +48,7 @@ function getTweet() {
             var streamMe = [];
                 for (var i = 0; i < 20; i++) {
                     streamMe.push(JSON.stringify(stream[i].text));
+                    streamMe.push(stream[i].created_at);
                     var spliced = streamMe.splice(1, 18);
                     console.log(spliced);
                 }       
