@@ -18,7 +18,6 @@ var client = new Twitter(keys.twitter);
 
 var args = process.argv.slice(2);
 
-
 var toDo = args[0];
 
 var toDoArray = [];
@@ -74,7 +73,6 @@ function getSpotify() {
 
 
 
-
 var SpotifyWebApi = require('spotify-web-api-node');
 
 // credentials are optional
@@ -86,9 +84,9 @@ var spotifyApi = new SpotifyWebApi({
 
 // GETTING 'NO TOKEN PROVIDED' from Spotify - now requires AUTH
 
-    var song = args
+  
  
-spotify.search({ type: 'track', query: song }, function(err, data) {
+spotify.search({ type: 'track', query: toDoArray }, function(err, data) {
   if (err) {
     return console.log('Error occurred: ' + err);
   } else if (song === false) {
@@ -104,38 +102,27 @@ spotify.search({ type: 'track', query: song }, function(err, data) {
 
 
 function getOMDB() {
-/*
-    * Title of the movie.
-    * Year the movie came out.
-    * IMDB Rating of the movie.
-    * Rotten Tomatoes Rating of the movie.
-    * Country where the movie was produced.
-    * Language of the movie.
-    * Plot of the movie.
-    * Actors in the movie.
- */
 
-var movieName = toDoArray;
 
 // Then run a request to the OMDB API with the movie specified
-var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
+var queryUrl = "http://www.omdbapi.com/?t=" + toDoArray + "&y=&plot=short&apikey=trilogy";
 
 request(queryUrl, function(error, response, body) {
 
   // If the request is successful
   if (!error && response.statusCode === 200) {
 
-    // Parse the body of the site and recover just the imdbRating
-    // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
-   
-    console.log("Title: " + JSON.parse(body).Title);
-    console.log("Release Year: " + JSON.parse(body).Year);
-    console.log("IMDB Rating: " + JSON.parse(body).imdbRating);
-    console.log("Rotten Tomatoes Score: " + JSON.parse(body).Ratings[1].Value);
-    console.log("Country: " + JSON.parse(body).Country);
-    console.log("Language: " + JSON.parse(body).Language);
-    console.log("Plot: " + JSON.parse(body).Plot);
-    console.log("Actors: " + JSON.parse(body).Actors);
+    console.log(`
+    Title: ${JSON.parse(body).Title}
+    Release Year: ${JSON.parse(body).Year}
+    IMDB Rating: ${body.imdbRating}
+    Rotten Tomatoes Score: ${JSON.parse(body).Ratings[1].Value}
+    Country: ${JSON.parse(body).Country}
+    Language: ${JSON.parse(body).Language}
+    Plot: ${JSON.parse(body).Plot}
+    Actors: ${JSON.parse(body).Actors}
+    `);
+
   }
 });
 
