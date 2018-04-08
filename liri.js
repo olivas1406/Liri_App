@@ -9,7 +9,8 @@ var Twitter = require('twitter');
 
 var request = require("request");
 
-// Add the code required to import the keys.js file and store it in a variable.
+var fs = require("fs");
+
 var keys = require("./keys.js")
 
 var spotify = new Spotify(keys.spotify);
@@ -26,6 +27,7 @@ for (let i = 1; i < args.length; i++) {
     toDoArray.push(args[i]);
 }
 
+
 if (toDo === "my-tweets") {  // node liri.js my-tweets
 
     getTweet();
@@ -40,6 +42,8 @@ if (toDo === "my-tweets") {  // node liri.js my-tweets
 
 } else if (toDo === "do-what-it-says") {  // node liri.js do-what-it-says
     
+    getTextFile();
+
 } else {
     console.log("Please Enter A Valid Input")
 }
@@ -54,7 +58,6 @@ function getTweet() {
                     streamMe.push(stream[i].created_at);
                     var spliced = streamMe.splice(1, 18);
                     var toShow = spliced.toString();
-                    toShow = toShow.replace(/ ] /gi, " ");
                     console.log(toShow);
                 }       
             }
@@ -104,6 +107,11 @@ spotify.search({ type: 'track', query: toDoArray }, function(err, data) {
 
 function getOMDB() {
 
+    
+ //console.log(toDoArray);   // REMOVE ME REMOVE ME REMOVE ME REMOVE ME REMOVE ME
+
+
+
 var queryUrl = "http://www.omdbapi.com/?t=" + toDoArray + "&y=&plot=short&apikey=trilogy";
 var queryDefault = "http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=trilogy";
 
@@ -147,7 +155,30 @@ console.log(`
     }
 }
 
+function getTextFile() {
 
+    fs.readFile("random.txt", "utf8", function(error, data) {
+
+        if (error){
+            return console.log(error);
+        }
+            if (data.includes("spotify-this-song")) {
+            
+                toDoArray = data.replace("movie-this", " ").trim();
+                getSpotify();
+
+            } else if (data.includes("my-tweets")) {
+            
+                toDoArray = data.replace("movie-this", " ").trim();
+                getTweet();
+
+            } else if (data.includes("movie-this")) {
+
+                toDoArray = data.replace("movie-this", " ").trim();
+                getOMDB();
+            }
+    });
+};
 
 
 
