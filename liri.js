@@ -21,48 +21,43 @@ var toDo = args[0];
 
 var toDoArray = [];
 
-for (let i = 1; i < args.length; i++) {
+for (let i = 1; i < args.length; i++) {                                                     // Allows for multiple words to be entered
     toDoArray.push(args[i]);
 }
 
+if (toDo === "my-tweets") {                                                                 // If 'my-tweets' is entered
+    getTweet();                                                                             // Call the getTweet function
 
-if (toDo === "my-tweets") {
+} else if (toDo === "spotify-this-song") {                                                  // Else If 'spotify-this-song' is entered  
+    getSpotify();                                                                           // Call the getSpotify function
 
-    getTweet();
+} else if (toDo === "movie-this") {                                                         // Else If 'movie-this' is entered    
+    getOMDB();                                                                              // Call the getOMDB function
 
-} else if (toDo === "spotify-this-song") { 
-   
-    getSpotify();
+} else if (toDo === "do-what-it-says") {                                                    // Else If 'do-what-it-says' is entered   
+    getTextFile();                                                                          // Call the getTextFile function
 
-} else if (toDo === "movie-this") {                   
-    
-    getOMDB();
-
-} else if (toDo === "do-what-it-says") { 
-    
-    getTextFile();
-
-} else {
-    console.log("Please Enter A Valid Input")
+} else {                                                                                    // Else (no valid input) 
+    console.log("Please Enter A Valid Input")                                               // Show this message 
 }
 
-function getTweet() {
-    var params = { screen_name: '_Shut_Up_Donnie', count: 20 };
-        client.get('statuses/user_timeline', params, function (error, stream, response) {
-            if (!error) {  
-            var streamMe = [];
-                for (var i = 0; i < 20; i++) {
-                    streamMe.push(JSON.stringify(stream[i].text));
-                    streamMe.push(stream[i].created_at);
-                    var spliced = streamMe.splice(1, 18);
-                    var toShow = spliced.toString();
-                    console.log(toShow);
+function getTweet() {                                                                       // Function to get tweets
+    var params = { screen_name: '_Shut_Up_Donnie', count: 20 };                             // Screen name and number of tweets to get
+        client.get('statuses/user_timeline', params, function (error, stream, response) {   // What to get
+            if (!error) {                                                                   // If there are no errors
+            var streamMe = [];                                                              // Create an empty array called streamMe
+                for (var i = 0; i < 20; i++) {                                              // Loop 20 times
+                    streamMe.push(JSON.stringify(stream[i].text));                          // Push tweets
+                    streamMe.push(stream[i].created_at);                                    // Push timestamps
+                    var spliced = streamMe.splice(1, 18);                                   // Reduce the array to the index that matters
+                    var toShow = spliced.toString();                                        // Hold the string
+                    console.log(toShow);                                                    // Show the results
                 }       
             }
         })
 };
 
-function getSpotify() {
+function getSpotify() {                                                                     // Function to search Spotify
 /*
     - Artist(s)
     - The song's name
@@ -82,18 +77,18 @@ function getSpotify() {
     });
 };
 
-function getOMDB() {
+function getOMDB() {                                                                        // Function to get OMDB movie information
 
-var queryUrl = "http://www.omdbapi.com/?t=" + toDoArray + "&y=&plot=short&apikey=trilogy";
-var queryDefault = "http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=trilogy";
+var queryUrl = "http://www.omdbapi.com/?t=" + toDoArray + "&y=&plot=short&apikey=trilogy";  // Search URL if input is given
+var queryDefault = "http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=trilogy";      // Search URL if no input is given (default to Mr Nobody)
 
-    if (toDoArray.length === 0) {
+    if (toDoArray.length === 0) {                                                           // If the toDoArray is empty
         
-        request(queryDefault, function(error, response, body) {
+        request(queryDefault, function(error, response, body) {                             // Use queryDefault as the search URL
 
-            if (!error && response.statusCode === 200) {
-  
-                console.log(`
+            if (!error && response.statusCode === 200) {                                    // If there are no errors and code 200 is returned
+                                                                                            // Show the movie information
+                console.log(`                                                               
     Title: ${JSON.parse(body).Title}
     Release Year: ${JSON.parse(body).Year}
     IMDB Rating: ${body.imdbRating}
@@ -106,12 +101,12 @@ var queryDefault = "http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=tri
             }
         });
 
-    } else {
+    } else {                                                                                // Else if the toDoArray is not empty
 
-        request(queryUrl, function(error, response, body) {
+        request(queryUrl, function(error, response, body) {                                 // Use queryUrl as the search URL
 
-            if (!error && response.statusCode === 200) {
-
+            if (!error && response.statusCode === 200) {                                    // If there are no errors and code 200 is returned
+                                                                                            // Show the movie information
 console.log(`
     Title: ${JSON.parse(body).Title}
     Release Year: ${JSON.parse(body).Year}
@@ -127,27 +122,25 @@ console.log(`
     }
 };
 
-function getTextFile() {
+function getTextFile() {                                                                    // Function to get what's in the random.txt file
 
-    fs.readFile("random.txt", "utf8", function(error, data) {
+    fs.readFile("random.txt", "utf8", function(error, data) {                               // Read what's in the file
 
-        if (error){
+        if (error){                                                                         // If there is an error print the error to the console
             return console.log(error);
-        }
-            if (data.includes("spotify-this-song")) {
-            
-                toDoArray = data.replace("movie-this", " ").trim();
-                getSpotify();
+        }                                                                                   // If no error is returned
+            if (data.includes("spotify-this-song")) {                                       // If 'spotify-this-song' is in the text document           
+                toDoArray = data.replace("spotify-this-song", " ").trim();                  // Set the toDoArray to what's in the text doc, removing 
+                                                                                            // 'spotify-this-song' and any spaces
+                getSpotify();                                                               // Call the getSpotify function
 
-            } else if (data.includes("my-tweets")) {
-            
-                toDoArray = data.replace("movie-this", " ").trim();
-                getTweet();
+            } else if (data.includes("my-tweets")) {                                        // If 'my-tweets' in in the text document
+                getTweet();                                                                 // Call the getTweet function
 
-            } else if (data.includes("movie-this")) {
-
-                toDoArray = data.replace("movie-this", " ").trim();
-                getOMDB();
+            } else if (data.includes("movie-this")) {                                       // Else If 'movie-this' is in the text document
+                toDoArray = data.replace("movie-this", " ").trim();                         // Set the toDoArray to what's in the text doc, removing 'movie-this'
+                                                                                            // and any spaces    
+                getOMDB();                                                                  // Call the getOMDB function
             }
     });
 };
