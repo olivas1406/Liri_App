@@ -1,6 +1,4 @@
 
-
-
 require("dotenv").config();
 
 var Spotify = require('node-spotify-api');
@@ -28,19 +26,19 @@ for (let i = 1; i < args.length; i++) {
 }
 
 
-if (toDo === "my-tweets") {  // node liri.js my-tweets
+if (toDo === "my-tweets") {
 
     getTweet();
 
-} else if (toDo === "spotify-this-song") { // node liri.js spotify-this-song '<song name here>'
+} else if (toDo === "spotify-this-song") { 
    
     getSpotify();
 
-} else if (toDo === "movie-this") { // node liri.js movie-this '<movie name here>'                   
+} else if (toDo === "movie-this") {                   
     
     getOMDB();
 
-} else if (toDo === "do-what-it-says") {  // node liri.js do-what-it-says
+} else if (toDo === "do-what-it-says") { 
     
     getTextFile();
 
@@ -74,43 +72,17 @@ function getSpotify() {
     If no song is provided then your program will default to "The Sign" by Ace of Base.
 */
 
-
-
-
-var SpotifyWebApi = require('spotify-web-api-node');
-
-// credentials are optional
-var spotifyApi = new SpotifyWebApi({
-  clientId : 'fcecfc72172e4cd267473117a17cbd4d',
-  clientSecret : 'a6338157c9bb5ac9c71924cb2940e1a7',
-  redirectUri : 'http://www.example.com/callback'
-});
-
-// GETTING 'NO TOKEN PROVIDED' from Spotify - now requires AUTH
-
-  
- 
-spotify.search({ type: 'track', query: toDoArray }, function(err, data) {
-  if (err) {
-    return console.log('Error occurred: ' + err);
-  } else if (song === false) {
-      // search for 'The Sign' by Ace of Base
-  }
- 
-    console.log(data); 
-});
-
-
-}
-
-
+    spotify.search({ type: 'track', query: toDoArray }, function(err, data) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        } else if (song === false) {
+            // search for 'The Sign' by Ace of Base
+        }
+        console.log(data); 
+    });
+};
 
 function getOMDB() {
-
-    
- //console.log(toDoArray);   // REMOVE ME REMOVE ME REMOVE ME REMOVE ME REMOVE ME
-
-
 
 var queryUrl = "http://www.omdbapi.com/?t=" + toDoArray + "&y=&plot=short&apikey=trilogy";
 var queryDefault = "http://www.omdbapi.com/?t=Mr+Nobody&y=&plot=short&apikey=trilogy";
@@ -153,7 +125,7 @@ console.log(`
             }
         });
     }
-}
+};
 
 function getTextFile() {
 
