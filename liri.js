@@ -67,15 +67,37 @@ function getSpotify() {                                                         
     If no song is provided then your program will default to "The Sign" by Ace of Base.
 */
 
+    if (toDoArray.length === 0) {
+        spotify.search({ type: 'track', query: 'the sign' }, function(err, data) {
+            if (err) {
+                return console.log('Error occurred: ' + err);                
+            } 
+            console.log(data);
+        })
+     } else {
+        spotify.search({ type: 'track', query: toDoArray }, function(err, data) {
+            if (err) {
+                return console.log('Error occurred: ' + err);
+            } 
+            console.log(data); 
+        });
+    };
+};
+
+
+   /* 
     spotify.search({ type: 'track', query: toDoArray }, function(err, data) {
         if (err) {
             return console.log('Error occurred: ' + err);
-        } else if (song === false) {
+        } else if (toDoArray === false) {
             // search for 'The Sign' by Ace of Base
         }
         console.log(data); 
-    });
-};
+    });   
+    */
+
+
+
 
 function getOMDB() {                                                                        // Function to get OMDB movie information
 
