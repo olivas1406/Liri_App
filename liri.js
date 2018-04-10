@@ -1,4 +1,5 @@
 
+
 require("dotenv").config();
 
 var Spotify = require('node-spotify-api');
@@ -66,38 +67,28 @@ function getSpotify() {                                                         
 
     If no song is provided then your program will default to "The Sign" by Ace of Base.
 */
-
     if (toDoArray.length === 0) {
-        spotify.search({ type: 'track', query: 'the sign' }, function(err, data) {
-            if (err) {
-                return console.log('Error occurred: ' + err);                
-            } 
-            console.log(data);
+        spotify
+        .request('https://api.spotify.com/v1/search?q=track:the+sign&type=track')
+        .then(function(data) {
+            console.log("Artitst: " + JSON.stringify(data.tracks.items[0].album.artists[0].name));
+            console.log("Song Name: " + toDoArray);
         })
-     } else {
-        spotify.search({ type: 'track', query: toDoArray }, function(err, data) {
-            if (err) {
-                return console.log('Error occurred: ' + err);
-            } 
-            console.log(data); 
+        .catch(function(err) {
+            console.error('Error occurred: ' + err); 
+        });        
+    } else {
+    spotify
+        .request('https://api.spotify.com/v1/search?q=track:' + toDoArray  + '&type=track')
+        .then(function(data) {
+            console.log("Artitst: " + JSON.stringify(data.tracks.items[0].album.artists[0].name));
+            console.log("Song Name: " + toDoArray);
+        })
+        .catch(function(err) {
+            console.error('Error occurred: ' + err); 
         });
-    };
+    }
 };
-
-
-   /* 
-    spotify.search({ type: 'track', query: toDoArray }, function(err, data) {
-        if (err) {
-            return console.log('Error occurred: ' + err);
-        } else if (toDoArray === false) {
-            // search for 'The Sign' by Ace of Base
-        }
-        console.log(data); 
-    });   
-    */
-
-
-
 
 function getOMDB() {                                                                        // Function to get OMDB movie information
 
