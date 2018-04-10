@@ -72,7 +72,9 @@ function getSpotify() {                                                         
         .request('https://api.spotify.com/v1/search?q=track:the+sign&type=track')
         .then(function(data) {
             console.log("Artitst: " + JSON.stringify(data.tracks.items[0].album.artists[0].name));
-            console.log("Song Name: " + toDoArray);
+            console.log("Song Name: " + JSON.stringify(data.tracks.items[0].name)); 
+            console.log("Spotify Link: " + JSON.stringify(data.tracks.items[0].album.artists[0].external_urls));
+            console.log("Album :" + JSON.stringify(data.tracks.items[0]));
         })
         .catch(function(err) {
             console.error('Error occurred: ' + err); 
@@ -82,7 +84,9 @@ function getSpotify() {                                                         
         .request('https://api.spotify.com/v1/search?q=track:' + toDoArray  + '&type=track')
         .then(function(data) {
             console.log("Artitst: " + JSON.stringify(data.tracks.items[0].album.artists[0].name));
-            console.log("Song Name: " + toDoArray);
+            console.log("Song Name: " + JSON.stringify(data.tracks.items[0].name)); 
+            console.log("Spotify Link: " + JSON.stringify(data.tracks.items[0].album.artists[0].external_urls));
+         //   console.log("Album :" + JSON.stringify(data.tracks.items[1]));
         })
         .catch(function(err) {
             console.error('Error occurred: ' + err); 
