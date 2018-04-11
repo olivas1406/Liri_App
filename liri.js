@@ -67,8 +67,7 @@ function getSpotify() {                                                         
             console.log("Artitst: " + JSON.stringify(data.tracks.items[0].album.artists[0].name));  // Show the song artist
             console.log("Song Name: " + JSON.stringify(data.tracks.items[0].name));                 // Show the song name
             console.log("Spotify Link: " + JSON.stringify(data.tracks.items[0].preview_url));       // Show the preview URL
-           // console.log("Album :" + JSON.stringify(data.tracks.items[0]));
-            console.log("Album :" + JSON.stringify(data.tracks.items[0]));                          // Show the song album
+         // console.log("Album :" + JSON.stringify(data.tracks.items[0]));                          // Show the song album
         })
         .catch(function(err) {
             console.error('Error occurred: ' + err);                                                // If an error occurred, show the error
@@ -80,8 +79,7 @@ function getSpotify() {                                                         
             console.log("Artitst: " + JSON.stringify(data.tracks.items[0].album.artists[0].name));    // Show the song artist
             console.log("Song Name: " + JSON.stringify(data.tracks.items[0].name));                   // Show the song name
             console.log("Spotify Link: " + JSON.stringify(data.tracks.items[0].preview_url));         // Show the preview URL
-            //console.log("Album :" + JSON.stringify(data.tracks.items[0]));
-            console.log("Album :" + JSON.stringify(data.tracks.items[0]));                            // Show the song album
+          //  console.log("Album :" + JSON.stringify(data.tracks.items[0]));                            // Show the song album
 
         })
 
