@@ -59,37 +59,34 @@ function getTweet() {                                                           
 };
 
 function getSpotify() {                                                                     // Function to search Spotify
-/*
-    - Artist(s)
-    - The song's name
-    - A preview link of the song from Spotify
-    - The album that the song is from
 
-    If no song is provided then your program will default to "The Sign" by Ace of Base.
-*/
-    if (toDoArray.length === 0) {
+    if (toDoArray.length === 0) {                                                           // If there toDoArray is empty
         spotify
-        .request('https://api.spotify.com/v1/search?q=track:the+sign&type=track')
+        .request('https://api.spotify.com/v1/search?q=track:the+sign+ace&type=track&type=album')    // Search 'the sign ace'
         .then(function(data) {
-            console.log("Artitst: " + JSON.stringify(data.tracks.items[0].album.artists[0].name));
-            console.log("Song Name: " + JSON.stringify(data.tracks.items[0].name)); 
-            console.log("Spotify Link: " + JSON.stringify(data.tracks.items[0].album.artists[0].external_urls));
-            console.log("Album :" + JSON.stringify(data.tracks.items[0]));
+            console.log("Artitst: " + JSON.stringify(data.tracks.items[0].album.artists[0].name));  // Show the song artist
+            console.log("Song Name: " + JSON.stringify(data.tracks.items[0].name));                 // Show the song name
+            console.log("Spotify Link: " + JSON.stringify(data.tracks.items[0].preview_url));       // Show the preview URL
+           // console.log("Album :" + JSON.stringify(data.tracks.items[0]));
+            console.log("Album :" + JSON.stringify(data.tracks.items[0]));                          // Show the song album
         })
         .catch(function(err) {
-            console.error('Error occurred: ' + err); 
+            console.error('Error occurred: ' + err);                                                // If an error occurred, show the error
         });        
-    } else {
+    } else {                                                                                // Else (the toDoArray is not empty)
     spotify
-        .request('https://api.spotify.com/v1/search?q=track:' + toDoArray  + '&type=track')
+        .request('https://api.spotify.com/v1/search?q=track:' + toDoArray  + '&type=track&type=album')// Search what's in the toDoArray
         .then(function(data) {
-            console.log("Artitst: " + JSON.stringify(data.tracks.items[0].album.artists[0].name));
-            console.log("Song Name: " + JSON.stringify(data.tracks.items[0].name)); 
-            console.log("Spotify Link: " + JSON.stringify(data.tracks.items[0].album.artists[0].external_urls));
-         //   console.log("Album :" + JSON.stringify(data.tracks.items[1]));
+            console.log("Artitst: " + JSON.stringify(data.tracks.items[0].album.artists[0].name));    // Show the song artist
+            console.log("Song Name: " + JSON.stringify(data.tracks.items[0].name));                   // Show the song name
+            console.log("Spotify Link: " + JSON.stringify(data.tracks.items[0].preview_url));         // Show the preview URL
+            //console.log("Album :" + JSON.stringify(data.tracks.items[0]));
+            console.log("Album :" + JSON.stringify(data.tracks.items[0]));                            // Show the song album
+
         })
+
         .catch(function(err) {
-            console.error('Error occurred: ' + err); 
+            console.error('Error occurred: ' + err);                                                  // If an error occurred, show the error
         });
     }
 };
