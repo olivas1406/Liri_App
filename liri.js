@@ -1,5 +1,3 @@
-
-
 require("dotenv").config();
 
 var Spotify = require('node-spotify-api');
@@ -156,8 +154,3 @@ function getTextFile() {                                                        
             }
     });
 };
-
-
-
-
-
